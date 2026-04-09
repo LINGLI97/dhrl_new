@@ -1,0 +1,99 @@
+[36;1mSaving config:
+[0m
+{
+    "obs":	29,
+    "goal":	2,
+    "sub_goal":	2,
+    "l_action_dim":	8,
+    "h_action_dim":	2,
+    "action_max":	30.0,
+    "max_timesteps":	2000,
+    "env_name":	"AntMazeComplex-v0",
+    "test_env_name":	"AntMazeComplex-v0",
+    "max_steps":	2000,
+    "high_future_step":	25,
+    "subgoal_freq":	80,
+    "subgoal_scale":	[
+        28.0,
+        28.0
+    ],
+    "subgoal_offset":	[
+        24.0,
+        24.0
+    ],
+    "low_future_step":	150,
+    "subgoaltest_threshold":	1.0,
+    "subgoal_dim":	2,
+    "cutoff":	30.0,
+    "n_initial_rollouts":	700,
+    "n_graph_node":	500,
+    "low_bound_epsilon":	10,
+    "gradual_pen":	1.5,
+    "subgoal_noise_eps":	2.0,
+    "low_future_p":	0.8,
+    "low_future_p_g":	1.1,
+    "batch_size":	1024,
+    "clip_return":	80,
+    "start_planning_epoch":	5,
+    "subgoaltest_p":	0.2,
+    "seed":	0,
+    "cuda":	true,
+    "cuda_num":	0,
+    "save_dir":	"exp/",
+    "ckpt_name":	"Apr-9-8-43-57",
+    "resume_ckpt":	"",
+    "use_reverse_dist_func":	false,
+    "n_epochs":	1000,
+    "n_cycles":	15,
+    "high_optimize_freq":	10,
+    "n_batches":	1,
+    "hid_size":	256,
+    "n_hids":	3,
+    "activ":	"relu",
+    "noise_eps":	0.1,
+    "random_eps":	0.2,
+    "buffer_size":	2500000,
+    "gamma":	0.99,
+    "action_l2":	0.01,
+    "lr_actor":	0.0001,
+    "lr_critic":	0.001,
+    "polyak":	0.995,
+    "target_update_freq":	10,
+    "actor_update_freq":	2,
+    "grad_norm_clipping":	-1.0,
+    "grad_value_clipping":	-1.0,
+    "n_test_rollouts":	10,
+    "eval_render":	false,
+    "q_offset":	false,
+    "initial_sample":	6000,
+    "use_oracle_G":	false,
+    "FGS":	true,
+    "absolute_goal":	false,
+    "wandb_project":	"dhrl",
+    "wandb_entity":	"",
+    "wandb_name":	"",
+    "no_wandb":	false
+}
+Epoch 0: Iter (out of 15)= 0 1 2 3 4 5 6 7 8
+Traceback (most recent call last):
+  File "/home/ling/PhD/dhrl_official/DHRL/main.py", line 108, in <module>
+    algo.run()
+  File "/home/ling/PhD/dhrl_official/DHRL/rl/algo/dhrl.py", line 203, in run
+    self.collect_experience(train_agent=True, graph=True)
+  File "/home/ling/PhD/dhrl_official/DHRL/rl/algo/dhrl.py", line 155, in collect_experience
+    self.low_agent_optimize()
+  File "/home/ling/PhD/dhrl_official/DHRL/rl/algo/dhrl.py", line 87, in low_agent_optimize
+    self.low_learner.update_critic(batch, train_embed=True)
+  File "/home/ling/PhD/dhrl_official/DHRL/rl/learn/dhrl.py", line 263, in update_critic
+    loss_critic1 = self.critic_loss(batch)['critic_1']
+                   ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ling/PhD/dhrl_official/DHRL/rl/learn/dhrl.py", line 192, in critic_loss
+    q_bg1 = self.agent.get_qs(o, bg, a, net = 1)
+            ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ling/PhD/dhrl_official/DHRL/rl/agent/agent.py", line 186, in get_qs
+    actions = self.to_tensor(actions)
+              ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/ling/PhD/dhrl_official/DHRL/rl/agent/core.py", line 144, in to_tensor
+    x = x.cuda(device=self.args.cuda_num)
+        ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+KeyboardInterrupt

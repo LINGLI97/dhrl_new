@@ -1,0 +1,86 @@
+{
+  "os": "Linux-6.14.0-37-generic-x86_64-with-glibc2.39",
+  "python": "CPython 3.11.15",
+  "startedAt": "2026-04-09T07:43:10.998800Z",
+  "args": [
+    "--env_name",
+    "AntMazeBottleneck-v0",
+    "--test_env_name",
+    "AntMazeBottleneck-eval-v0",
+    "--action_max",
+    "30.",
+    "--max_steps",
+    "600",
+    "--high_future_step",
+    "12",
+    "--subgoal_freq",
+    "50",
+    "--subgoal_scale",
+    "12.",
+    "12.",
+    "--subgoal_offset",
+    "8.",
+    "8.",
+    "--low_future_step",
+    "150",
+    "--subgoaltest_threshold",
+    "1",
+    "--subgoal_dim",
+    "2",
+    "--l_action_dim",
+    "8",
+    "--h_action_dim",
+    "2",
+    "--cutoff",
+    "30",
+    "--n_initial_rollouts",
+    "200",
+    "--n_graph_node",
+    "300",
+    "--low_bound_epsilon",
+    "10",
+    "--gradual_pen",
+    "1.5",
+    "--subgoal_noise_eps",
+    "2",
+    "--cuda_num",
+    "0",
+    "--seed",
+    "0"
+  ],
+  "program": "/home/ling/PhD/dhrl_official/DHRL/main.py",
+  "codePath": "DHRL/main.py",
+  "codePathLocal": "DHRL/main.py",
+  "git": {
+    "remote": "https://github.com/LINGLI97/dhrl_new.git",
+    "commit": "d7608bfd95346af4318629e3259a42c044b645b1"
+  },
+  "email": "1311974521@qq.com",
+  "root": "/home/ling/PhD/dhrl_official",
+  "host": "nmslap007292.client.kcl.ac.uk",
+  "executable": "/home/ling/miniconda3/envs/dhrl/bin/python",
+  "cpu_count": 24,
+  "cpu_count_logical": 24,
+  "gpu": "NVIDIA GeForce RTX 5090 Laptop GPU",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "2011859927040",
+      "used": "73695899648"
+    }
+  },
+  "memory": {
+    "total": "33073422336"
+  },
+  "gpu_nvidia": [
+    {
+      "name": "NVIDIA GeForce RTX 5090 Laptop GPU",
+      "memoryTotal": "25651314688",
+      "cudaCores": 10496,
+      "architecture": "Blackwell",
+      "uuid": "GPU-ded2352a-5064-ac13-584f-e43c7c2fe2a6"
+    }
+  ],
+  "cudaVersion": "13.0",
+  "writerId": "tjdnr8aq1r8afvl81som3gvaih4jkvxw"
+}

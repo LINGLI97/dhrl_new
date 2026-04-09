@@ -1,0 +1,224 @@
+_wandb:
+    value:
+        cli_version: 0.25.1
+        e:
+            tjdnr8aq1r8afvl81som3gvaih4jkvxw:
+                args:
+                    - --env_name
+                    - AntMazeBottleneck-v0
+                    - --test_env_name
+                    - AntMazeBottleneck-eval-v0
+                    - --action_max
+                    - "30."
+                    - --max_steps
+                    - "600"
+                    - --high_future_step
+                    - "12"
+                    - --subgoal_freq
+                    - "50"
+                    - --subgoal_scale
+                    - "12."
+                    - "12."
+                    - --subgoal_offset
+                    - "8."
+                    - "8."
+                    - --low_future_step
+                    - "150"
+                    - --subgoaltest_threshold
+                    - "1"
+                    - --subgoal_dim
+                    - "2"
+                    - --l_action_dim
+                    - "8"
+                    - --h_action_dim
+                    - "2"
+                    - --cutoff
+                    - "30"
+                    - --n_initial_rollouts
+                    - "200"
+                    - --n_graph_node
+                    - "300"
+                    - --low_bound_epsilon
+                    - "10"
+                    - --gradual_pen
+                    - "1.5"
+                    - --subgoal_noise_eps
+                    - "2"
+                    - --cuda_num
+                    - "0"
+                    - --seed
+                    - "0"
+                codePath: DHRL/main.py
+                codePathLocal: DHRL/main.py
+                cpu_count: 24
+                cpu_count_logical: 24
+                cudaVersion: "13.0"
+                disk:
+                    /:
+                        total: "2011859927040"
+                        used: "73695899648"
+                email: 1311974521@qq.com
+                executable: /home/ling/miniconda3/envs/dhrl/bin/python
+                git:
+                    commit: d7608bfd95346af4318629e3259a42c044b645b1
+                    remote: https://github.com/LINGLI97/dhrl_new.git
+                gpu: NVIDIA GeForce RTX 5090 Laptop GPU
+                gpu_count: 1
+                gpu_nvidia:
+                    - architecture: Blackwell
+                      cudaCores: 10496
+                      memoryTotal: "25651314688"
+                      name: NVIDIA GeForce RTX 5090 Laptop GPU
+                      uuid: GPU-ded2352a-5064-ac13-584f-e43c7c2fe2a6
+                host: nmslap007292.client.kcl.ac.uk
+                memory:
+                    total: "33073422336"
+                os: Linux-6.14.0-37-generic-x86_64-with-glibc2.39
+                program: /home/ling/PhD/dhrl_official/DHRL/main.py
+                python: CPython 3.11.15
+                root: /home/ling/PhD/dhrl_official
+                startedAt: "2026-04-09T07:43:10.998800Z"
+                writerId: tjdnr8aq1r8afvl81som3gvaih4jkvxw
+        m: []
+        python_version: 3.11.15
+        t:
+            "1":
+                - 1
+            "2":
+                - 1
+            "3":
+                - 13
+                - 16
+                - 61
+            "4": 3.11.15
+            "5": 0.25.1
+            "12": 0.25.1
+            "13": linux-x86_64
+FGS:
+    value: false
+absolute_goal:
+    value: false
+action_l2:
+    value: 0.01
+action_max:
+    value: 30
+activ:
+    value: relu
+actor_update_freq:
+    value: 2
+batch_size:
+    value: 1024
+buffer_size:
+    value: 2500000
+ckpt_name:
+    value: Apr-9-8-43-10
+clip_return:
+    value: 80
+cuda:
+    value: true
+cuda_num:
+    value: 0
+cutoff:
+    value: 30
+env_name:
+    value: AntMazeBottleneck-v0
+eval_render:
+    value: false
+gamma:
+    value: 0.99
+grad_norm_clipping:
+    value: -1
+grad_value_clipping:
+    value: -1
+gradual_pen:
+    value: 1.5
+h_action_dim:
+    value: 2
+hid_size:
+    value: 256
+high_future_step:
+    value: 12
+high_optimize_freq:
+    value: 10
+initial_sample:
+    value: 6000
+l_action_dim:
+    value: 8
+low_bound_epsilon:
+    value: 10
+low_future_p:
+    value: 0.8
+low_future_p_g:
+    value: 1.1
+low_future_step:
+    value: 150
+lr_actor:
+    value: 0.0001
+lr_critic:
+    value: 0.001
+max_steps:
+    value: 600
+n_batches:
+    value: 1
+n_cycles:
+    value: 15
+n_epochs:
+    value: 1000
+n_graph_node:
+    value: 300
+n_hids:
+    value: 3
+n_initial_rollouts:
+    value: 200
+n_test_rollouts:
+    value: 10
+no_wandb:
+    value: false
+noise_eps:
+    value: 0.1
+polyak:
+    value: 0.995
+q_offset:
+    value: false
+random_eps:
+    value: 0.2
+resume_ckpt:
+    value: ""
+save_dir:
+    value: exp/
+seed:
+    value: 0
+start_planning_epoch:
+    value: 5
+subgoal_dim:
+    value: 2
+subgoal_freq:
+    value: 50
+subgoal_noise_eps:
+    value: 2
+subgoal_offset:
+    value:
+        - 8
+        - 8
+subgoal_scale:
+    value:
+        - 12
+        - 12
+subgoaltest_p:
+    value: 0.2
+subgoaltest_threshold:
+    value: 1
+target_update_freq:
+    value: 10
+test_env_name:
+    value: AntMazeBottleneck-eval-v0
+use_oracle_G:
+    value: false
+use_reverse_dist_func:
+    value: false
+wandb_entity:
+    value: ""
+wandb_name:
+    value: ""
+wandb_project:
+    value: dhrl
