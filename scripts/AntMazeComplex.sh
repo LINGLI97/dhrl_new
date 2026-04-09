@@ -1,5 +1,6 @@
 GPU=$1
 SEED=$2
+WANDB_NAME=${3:-""}
 
 
 
@@ -25,4 +26,6 @@ python DHRL/main.py \
 --subgoal_noise_eps 2 \
 --cuda_num ${GPU} \
 --seed ${SEED} \
---FGS
+--FGS \
+--wandb_project 'dhrl' \
+--wandb_name "${WANDB_NAME}"

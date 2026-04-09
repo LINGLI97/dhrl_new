@@ -4,6 +4,11 @@ import matplotlib.pyplot as plt
 import matplotlib.animation as animation
 from rl.algo.core import BaseAlgo
 from rl.algo.graph import GraphPlanner
+from rl.utils.render_utils import (
+    is_maze_env, get_maze_components,
+    render_closeup, render_minimap, composite_frame, save_eval_gif,
+    _RENDER_DEPS,
+)
 
 class Algo(BaseAlgo):
     def __init__(
@@ -229,42 +234,92 @@ class Algo(BaseAlgo):
         if use_test_env and hasattr(self, 'test_env'):
             print("use test env")
             env = self.test_env
+
+        # set up GIF rendering for maze envs
+        do_render = _RENDER_DEPS and is_maze_env(env)
+        if do_render:
+            _, ant_env, torso_x, torso_y, size_scaling, structure = \
+                get_maze_components(env)
+            gif_frames = []
+
         total_success_count = 0
         total_trial_count = 0
         total_collision_steps = 0
+        total_reward = 0.0
+
         for n_test in range(self.args.n_test_rollouts):
             observation = env.reset()
             ob = observation['observation']
             bg = observation['desired_goal']
             ag = observation['achieved_goal']
             episode_collision_steps = 0
+            episode_reward = 0.0
+
+            # per-episode trajectory buffers for minimap (episode 0 only)
+            if do_render and n_test == 0:
+                x_trail, y_trail, col_trail = [], [], []
+
             for timestep in range(self.env_params['max_timesteps']):
                 act = self.eval_get_actions(ob, bg)
                 if render:
                     env.render()
-                observation, _, _, info = env.step(act)
-                ob = observation['observation']
-                ag = observation['achieved_goal']
-                if info.get('collision', False):
+                observation, rew, _, info = env.step(act)
+                ob  = observation['observation']
+                ag  = observation['achieved_goal']
+                col = info.get('collision', False)
+                if col:
                     episode_collision_steps += 1
+                episode_reward += float(rew)
+
+                # render GIF frame (episode 0, every 2 steps)
+                if do_render and n_test == 0:
+                    x_trail.append(ob[0]); y_trail.append(ob[1])
+                    col_trail.append(col)
+                    if timestep % 2 == 0:
+                        col_rate = episode_collision_steps / max(timestep + 1, 1)
+                        dist     = float(env.goal_distance(ag, bg))
+                        metrics  = {
+                            'step':      timestep,
+                            'col_rate':  col_rate,
+                            'dist2goal': dist,
+                            'reward':    episode_reward,
+                        }
+                        main_frame = render_closeup(ant_env, ob[0], ob[1])
+                        minimap    = render_minimap(
+                            x_trail, y_trail, col_trail,
+                            ob[0], ob[1], bg[0], bg[1],
+                            structure, size_scaling, torso_x, torso_y)
+                        frame = composite_frame(main_frame, minimap, metrics, col)
+                        gif_frames.append(frame)
+
             total_collision_steps += episode_collision_steps
+            total_reward += episode_reward
             TestEvn_Dist = env.goal_distance(ag, bg)
             self.monitor.store(TestEvn_Dist=np.mean(TestEvn_Dist))
 
             total_trial_count += 1
-            if(self.args.env_name == "AntMazeSmall-v0"):
-                if (TestEvn_Dist <= 2.5):
+            if self.args.env_name == "AntMazeSmall-v0":
+                if TestEvn_Dist <= 2.5:
                     total_success_count += 1
-            elif(self.args.env_name == "Reacher3D-v0"):
-                if (TestEvn_Dist <= 0.25):
+            elif self.args.env_name == "Reacher3D-v0":
+                if TestEvn_Dist <= 0.25:
                     total_success_count += 1
             else:
-                if (TestEvn_Dist <= 5):
+                if TestEvn_Dist <= 5:
                     total_success_count += 1
-        eval_collision_rate = total_collision_steps / (self.args.n_test_rollouts * self.env_params['max_timesteps'])
+
+        eval_collision_rate = total_collision_steps / (
+            self.args.n_test_rollouts * self.env_params['max_timesteps'])
+        eval_avg_reward = total_reward / self.args.n_test_rollouts
         self.monitor.store(Eval_CollisionRate=eval_collision_rate)
         self.monitor.store(Eval_CollisionSteps=total_collision_steps)
+        self.monitor.store(Eval_AvgReward=eval_avg_reward)
         success_rate = total_success_count / total_trial_count
+
+        if do_render and gif_frames:
+            use_wandb = getattr(self.monitor, '_use_wandb', False)
+            save_eval_gif(gif_frames, self.log_path, epoch, use_wandb=use_wandb)
+
         return success_rate
 
     
